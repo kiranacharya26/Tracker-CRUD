@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "text": "AOT-e11",
+      "day": "monday 7:00 am",
+      "remainder": true,
+      "id": 1
+    },
+    {
+      "text": "Outingt with friends",
+      "day": "sunday 5:00 PM",
+      "remainder": false,
+      "id": 2
+    },
+    {
+      "text": "interview",
+      "day": "Wednesday 11:00 AM",
+      "remainder": true,
+      "id": 3
+    }
+  ]
+}
