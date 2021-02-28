@@ -9,78 +9,108 @@ import Footer from './components/Footer';
 
 const App = () => {
   const [showTask, setShowTask] = useState(false)
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([
+
+      {
+        text: "AOT-e11",
+        day: "monday 7:00 am",
+        remainder: true,
+        id: 1
+      },
+      {
+        text: "Outingt with friends",
+        day: "sunday 5:00 PM",
+        remainder: false,
+        id: 2
+      },
+      {
+        text: "interview",
+        day: "Wednesday 11:00 AM",
+        remainder: true,
+        id: 3
+      }
+    
+  ])
 
   //fetch from local data
-  useEffect(()=>{
-    const getTasks = async () =>{
-      const fromServer = await fetchdatas()
-      setTasks(fromServer)
-    }
-    getTasks()
-  },[])
+  // useEffect(()=>{
+  //   const getTasks = async () =>{
+  //     const fromServer = await fetchdatas()
+  //     setTasks(fromServer)
+  //   }
+  //   getTasks()
+  // },[])
 
-  const fetchdatas = async () =>{
-    const res = await fetch('http://localhost:5000/tasks')
-    const data = await res.json()
+  // const fetchdatas = async () =>{
+  //   const res = await fetch('http://localhost:5000/tasks')
+  //   const data = await res.json()
 
-    return data
+  //   return data
+  // }
+  const addTask =  (task) =>{
+    const id= Math.floor(Math.random()*10000)+1
+    const newTask ={id,...task}
+
+    setTasks([...tasks,newTask])
   }
 
   //delete task
-const deleteTask = async(id) =>{
-  await fetch(`http://localhost:5000/tasks/${id}`,{
-    method:'Delete'
-  })
+const deleteTask = (id) =>{
+  // await fetch(`http://localhost:5000/tasks/${id}`,{
+  //   method:'Delete'
+  // })
 
-  setTasks(tasks.filter((task)=> task.id !== id))
+  // setTasks(tasks.filter((task)=> task.id !== id))
+  setTasks(tasks.filter((task) =>task.id !== id))
 }
 //toggle function
-const fetchdata = async (id) =>{
-  const res = await fetch(`http://localhost:5000/tasks/${id}`)
-  const data = await res.json()
+// const fetchdata = async (id) =>{
+//   setTasks(tasks.map((task) =>
+//   tasks.map === id ? {...task , remainder: !task.remainder} : task))
+// //   const res = await fetch(`http://localhost:5000/tasks/${id}`)
+// //   const data = await res.json()
 
-  return data
-}
+// //   return data
+// // }
 
-const toggle= async(id) =>{
-  const tasktoggle = await fetchdata(id)
-  const updatetoggle = {...tasktoggle,
-  remainder: !tasktoggle.remainder}
+const toggle= (id) =>{
+  // const tasktoggle = await fetchdata(id)
+  // const updatetoggle = {...tasktoggle,
+  // remainder: !tasktoggle.remainder}
 
-  const res = await fetch(`http://localhost:5000/tasks/${id}`,{
-    'method': 'PUT',
-    headers:{
-      'Content-type':'applictaion/json'
-    },
+  // const res = await fetch(`http://localhost:5000/tasks/${id}`,{
+  //   'method': 'PUT',
+  //   headers:{
+  //     'Content-type':'applictaion/json'
+  //   },
    
-    body: JSON.stringify(updatetoggle)
-  })
-  const data = await res.json()
+  //   body: JSON.stringify(updatetoggle)
+  // })
+  // const data = await res.json()
 
 
   setTasks(tasks.map(task =>
     task.id === id ? {
-      ...task, remainder: !data.remainder
+      ...task, remainder: !task.remainder
     }: task
     ))
 }
 
 //add task
-const addTask = async(task) =>{
-  const res = await fetch('http://localhost:5000/tasks',{
-    method:'POST',
-    headers:{
-      'content-type':'application/json',
-    },
-    body: JSON.stringify(task)
-  })
-  const data = await res.json()
-  setTasks([...tasks, data])
-  // const id = Math.floor(Math.random()*10000) +1
-  // const newTask = {id, ...task}
-  // setTasks([...tasks,newTask])
-}
+// const addTask = async(task) =>{
+//   const res = await fetch('http://localhost:5000/tasks',{
+//     method:'POST',
+//     headers:{
+//       'content-type':'application/json',
+//     },
+//     body: JSON.stringify(task)
+//   })
+//   const data = await res.json()
+//   setTasks([...tasks, data])
+//   // const id = Math.floor(Math.random()*10000) +1
+//   // const newTask = {id, ...task}
+//   // setTasks([...tasks,newTask])
+// }
   return (
     <Router>
        <div className="container">
